@@ -28,9 +28,11 @@ type CardType = {
 }
 interface state {
   cards: CardType[],
+  currentCompanyId: string | null;
 }
 const initialState: state = {
   cards: [],
+  currentCompanyId: null
 };
 
 const cardsSlice = createSlice({
@@ -40,11 +42,14 @@ const cardsSlice = createSlice({
     addCards: (state, action: PayloadAction<CardType[]>) => {
       const newCards = action.payload;
       state.cards = [...state.cards, ...newCards];
+    },
+    setCurrentCompanyId: (state, action: PayloadAction<string | null>) => {
+      state.currentCompanyId = action.payload;
     }
   }
 })
 
 export type { CardType };
-export const { addCards } = cardsSlice.actions;
+export const { addCards, setCurrentCompanyId } = cardsSlice.actions;
 export const selectCards = (state: RootState) => state.cards;
-export default cardsSlice.reducer;``
+export default cardsSlice.reducer;
