@@ -11,10 +11,12 @@ const CardList = () => {
   const lastItem = createRef();
   const observerLoader = useRef();
 
-  const actionInSight = () => {
-    // проверил, что сервер выдает максимум 80 карт
-    const totalCards = 80;
-    if (cards.length <= totalCards) {
+  const actionInSight = (entries) => {
+    // Не знаю как определить максимальное количетсво карт, которое может прийти с сервера
+    // в одно время приходило максимум по 80, потом максимум по 60, потом приходило максимум 50
+    // в качестве примера я остановился на максимальном количестве карт - 50
+    const totalCards = 50;
+    if (entries[0].isIntersecting && cards.length < totalCards) {
       dispatch(fetchData());
     }
   };

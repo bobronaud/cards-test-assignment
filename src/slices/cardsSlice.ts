@@ -13,7 +13,7 @@ export const fetchData = createAsyncThunk('cards/fetch', async (_, thunkAPI) => 
       },
       body: JSON.stringify({
         offset,
-        limit: 0,
+        limit: 10,
       }),
     },
   );

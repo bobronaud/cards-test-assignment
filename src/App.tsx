@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { fetchData } from './slices/cardsSlice';
-import { openModal } from './slices/modalSlice';
 import CardList from './components/CardList';
 import Modal from './components/Modal';
 import Splash from './components/Splash';
@@ -11,7 +10,7 @@ import Reloader from './components/Reloader';
 const App = () => {
   const dispatch = useAppDispatch();
   const [splash, setSplash] = useState(false);
-  const { loading, cards, error } = useAppSelector((state) => state.cards);
+  const { loading, cards } = useAppSelector((state) => state.cards);
 
   const isLoaded = sessionStorage.getItem('loaded');
   const reloading = loading && cards.length === 0 && isLoaded;
