@@ -1,12 +1,11 @@
 import { forwardRef } from 'react';
 
 import type { CardType } from '../slices/cardsSlice';
-import eye from '../assets/images/eye_white.png';
-import trash from '../assets/images/trash_white.png';
-
 import { useAppDispatch } from '../hooks';
 import { openModal } from '../slices/modalSlice';
 import { setCurrentCompanyId } from '../slices/cardsSlice';
+import EyeImage from './EyeImage';
+import TrashImage from './TrashImage';
 
 type Props = {
   data: CardType;
@@ -73,8 +72,12 @@ const Card = forwardRef(({ data }: Props, ref) => {
       </div>
       <hr />
       <div className="card-footer">
-        <img src={eye} onClick={() => handleClick('show')} />
-        <img src={trash} onClick={() => handleClick('remove')} />
+        <div onClick={() => handleClick('show')}>
+          <EyeImage color={mobileAppDashboard.mainColor} />
+        </div>
+        <div onClick={() => handleClick('remove')}>
+          <TrashImage color={mobileAppDashboard.accentColor} />
+        </div>
         <button
           className="button"
           onClick={() => handleClick('info')}

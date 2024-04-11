@@ -1,12 +1,20 @@
+import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../hooks';
-import { closeModal } from '../slices/modalSlice';
-import img from '../assets/images/exclamation_white.png';
+import { closeModal, openModal } from '../slices/modalSlice';
+import ExclamationImage from './ExclamationImage';
 
 const Modal = () => {
   const dispatch = useAppDispatch();
   const { currentCompanyId } = useAppSelector((state) => state.cards);
   const { error } = useAppSelector((state) => state.cards);
   const { type, isOpen } = useAppSelector((state) => state.modal);
+
+  useEffect(() => {
+    if (error) {
+      dispatch(openModal('error'));
+    }
+  }, [error]);
+
   const text = {
     show: 'показать',
     remove: 'удалить',
@@ -20,7 +28,7 @@ const Modal = () => {
           {type === 'error' ? (
             <>
               <p>
-                <img src={img} />
+                <ExclamationImage />
                 Ошибка:<b>{text[type]}</b>
               </p>
             </>

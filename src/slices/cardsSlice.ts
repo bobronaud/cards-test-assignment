@@ -4,19 +4,16 @@ import { openModal } from './modalSlice.ts';
 
 export const fetchData = createAsyncThunk('cards/fetch', async (_, thunkAPI) => {
   const offset = thunkAPI.getState().cards.cards.length;
-  const response = await fetch(
-    'http://devapp.bonusmoney.pro/mobileapp/getAllCompaniesIdeal',
-    {
-      method: 'POST',
-      headers: {
-        TOKEN: '123',
-      },
-      body: JSON.stringify({
-        offset,
-        limit: 10,
-      }),
+  const response = await fetch('http://devapp.bonusmoney.pro/mobileapp/getAllCompanies', {
+    method: 'POST',
+    headers: {
+      TOKEN: '123',
     },
-  );
+    body: JSON.stringify({
+      offset,
+      limit: 10,
+    }),
+  });
 
   switch (response.status) {
     case 200: {
@@ -25,15 +22,15 @@ export const fetchData = createAsyncThunk('cards/fetch', async (_, thunkAPI) => 
     }
     case 400: {
       const { message } = await response.json();
-      thunkAPI.dispatch(openModal('error'));
+      // thunkAPI.dispatch(openModal('error'));
       return thunkAPI.rejectWithValue(message);
     }
     case 401: {
-      thunkAPI.dispatch(openModal('error'));
+      // thunkAPI.dispatch(openModal('error'));
       return thunkAPI.rejectWithValue('Ошибка авторизации');
     }
     case 500: {
-      thunkAPI.dispatch(openModal('error'));
+      // thunkAPI.dispatch(openModal('error'));
       return thunkAPI.rejectWithValue('Все упало!');
     }
     default:
@@ -92,21 +89,19 @@ const cardsSlice = createSlice({
       const newCards = action.payload;
       state.cards = [...state.cards, ...newCards];
       state.loading = false;
-      state.error = null;
     }),
       builder.addCase(fetchData.pending, (state) => {
         state.loading = true;
-        state.error = null;
       }),
       builder.addCase(fetchData.rejected, (state, action) => {
         state.loading = false;
-        const error = action.payload;
+        const error = action.payload as string;
         state.error = error;
       });
   },
 });
 
-export type { CardType, ErrorType };
+export type { CardType };
 export const { setCurrentCompanyId } = cardsSlice.actions;
 export const selectCards = (state: RootState) => state.cards;
 export default cardsSlice.reducer;

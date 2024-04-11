@@ -43,6 +43,11 @@
   display: flex;
   flex-direction: column;
 }
+hr {
+  border: none;
+  height: 1px;
+  background-color: #efefef;
+}
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -92,7 +97,7 @@
   flex-direction: row;
   justify-content: end;
 }
-.card-footer img {
+.card-footer svg {
   margin-top: 4vw;
   width: 8vw;
   height: 8vw;
