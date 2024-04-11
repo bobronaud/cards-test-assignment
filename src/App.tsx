@@ -1,45 +1,40 @@
 import { useState, useEffect } from 'react';
-import { useAppDispatch } from './hooks';
-import { addCards } from './slices/cardsSlice';
+import { useAppDispatch, useAppSelector } from './hooks';
+import { fetchData } from './slices/cardsSlice';
+import { openModal } from './slices/modalSlice';
 import CardList from './components/CardList';
 import Modal from './components/Modal';
 import Splash from './components/Splash';
 import Preloader from './components/Preloader';
+import Reloader from './components/Reloader';
 
 const App = () => {
   const dispatch = useAppDispatch();
   const [splash, setSplash] = useState(false);
-  const [preloader, setPreloader] = useState(false);
+  const { loading, cards, error } = useAppSelector((state) => state.cards);
 
-  const isFirstOpen = sessionStorage.getItem('splash');
-  if (!isFirstOpen) {
-    sessionStorage.setItem('splash', 'was');
-    setSplash(true);
-    setTimeout(() => setSplash(false), 3000);
-  }
+  const isLoaded = sessionStorage.getItem('loaded');
+  const reloading = loading && cards.length === 0 && isLoaded;
 
   useEffect(() => {
-    if (!splash) {
-      setPreloader(true);
-
-      fetch('http://devapp.bonusmoney.pro/mobileapp/getAllCompaniesIdeal', {
-        method: 'POST',
-        headers: {
-          TOKEN: '123',
-        },
-        body: JSON.stringify({
-          offset: 0,
-          limit: 10,
-        }),
-      })
-        .then((res) => res.json())
-        .then(({ companies }) => dispatch(addCards(companies)))
-        .then(() => {
-          // setTimeout написал для отображения работы прелоадера, иначе компании быстро загружаются и прелоадера почти не заметно
-          setTimeout(() => setPreloader(false), 500);
-        });
+    if (!isLoaded) {
+      setSplash(true);
+      setTimeout(() => {
+        setSplash(false);
+        dispatch(fetchData());
+      }, 3000);
+    } else {
+      dispatch(fetchData());
     }
-  }, [splash]);
+
+    const handleBeforeUnload = () => {
+      sessionStorage.setItem('loaded', 'true');
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   return splash ? (
     <Splash />
@@ -48,7 +43,11 @@ const App = () => {
       <div className="header">
         <p>Управление картами</p>
       </div>
-      <div className="main">{preloader ? <Preloader /> : <CardList />}</div>
+      <div className="main">
+        <CardList />
+        {reloading && <Reloader />}
+        {loading && !reloading ? <Preloader /> : null}
+      </div>
       <Modal />
     </div>
   );

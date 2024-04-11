@@ -1,3 +1,5 @@
+import { forwardRef } from 'react';
+
 import type { CardType } from '../slices/cardsSlice';
 import eye from '../assets/images/eye_white.png';
 import trash from '../assets/images/trash_white.png';
@@ -10,7 +12,7 @@ type Props = {
   data: CardType;
 };
 
-const Card = ({ data }: Props) => {
+const Card = forwardRef(({ data }: Props, ref) => {
   const dispatch = useAppDispatch();
   const { company, customerMarkParameters, mobileAppDashboard } = data;
 
@@ -22,6 +24,7 @@ const Card = ({ data }: Props) => {
   return (
     <div
       className="card"
+      ref={ref}
       style={{ backgroundColor: mobileAppDashboard.cardBackgroundColor }}
     >
       <div className="card-header">
@@ -85,6 +88,6 @@ const Card = ({ data }: Props) => {
       </div>
     </div>
   );
-};
+});
 
 export default Card;
