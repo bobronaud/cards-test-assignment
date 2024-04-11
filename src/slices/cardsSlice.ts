@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import type { RootState } from '../store.ts';
-import { openModal } from './modalSlice.ts';
 
 export const fetchData = createAsyncThunk('cards/fetch', async (_, thunkAPI) => {
+  // @ts-ignore
   const offset = thunkAPI.getState().cards.cards.length;
   const response = await fetch('http://devapp.bonusmoney.pro/mobileapp/getAllCompanies', {
     method: 'POST',
@@ -22,15 +22,12 @@ export const fetchData = createAsyncThunk('cards/fetch', async (_, thunkAPI) => 
     }
     case 400: {
       const { message } = await response.json();
-      // thunkAPI.dispatch(openModal('error'));
       return thunkAPI.rejectWithValue(message);
     }
     case 401: {
-      // thunkAPI.dispatch(openModal('error'));
       return thunkAPI.rejectWithValue('Ошибка авторизации');
     }
     case 500: {
-      // thunkAPI.dispatch(openModal('error'));
       return thunkAPI.rejectWithValue('Все упало!');
     }
     default:

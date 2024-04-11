@@ -23,6 +23,7 @@ const Card = forwardRef(({ data }: Props, ref) => {
   return (
     <div
       className="card"
+      // @ts-ignore
       ref={ref}
       style={{ backgroundColor: mobileAppDashboard.cardBackgroundColor }}
     >

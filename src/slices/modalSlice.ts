@@ -4,12 +4,12 @@ import type { RootState } from '../store.ts';
 type Modal = 'show' | 'remove' | 'info' | 'error';
 type State = {
   isOpen: boolean;
-  type: Modal | null;
+  type: Modal;
 };
 
 const initialState: State = {
   isOpen: false,
-  type: null,
+  type: 'info',
 };
 
 const modalSlice = createSlice({

@@ -9,8 +9,9 @@ const CardList = () => {
   const isEmpty = cards.length === 0;
 
   const lastItem = createRef();
-  const observerLoader = useRef();
+  const observerLoader = useRef<IntersectionObserver | null>(null);
 
+  // @ts-ignore
   const actionInSight = (entries) => {
     // Не знаю как определить максимальное количетсво карт, которое может прийти с сервера
     // в одно время приходило максимум по 80, потом максимум по 60, потом приходило максимум 50
@@ -27,7 +28,7 @@ const CardList = () => {
     }
     observerLoader.current = new IntersectionObserver(actionInSight);
     if (lastItem.current) {
-      observerLoader.current.observe(lastItem.current);
+      observerLoader.current.observe(lastItem.current as HTMLDivElement);
     }
   }, [lastItem]);
 
