@@ -1,4 +1,4 @@
-# [Deploy](https://cards-test-assignment.onrender.com)
+# сards-test-assignment
 
 ## Техническое задание
 Ссылка с ресурсами и макетом - http://bonusmoney.info/dev_test/FrontendTask.zip
