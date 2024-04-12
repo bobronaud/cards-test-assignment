@@ -1,4 +1,4 @@
-# company-сards-test-assignment
+# [Deploy](https://company-cards-test-assignment.netlify.app/)
 
 ## Техническое задание
 Ссылка с ресурсами и макетом - http://bonusmoney.info/dev_test/FrontendTask.zip
