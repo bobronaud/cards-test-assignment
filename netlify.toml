@@ -1,4 +1,4 @@
 [[redirects]]
-  from = "/api/*"
-  to = "http://devapp.bonusmoney.pro/mobileapp/:splat"
+  from = "/api"
+  to = "http://devapp.bonusmoney.pro/mobileapp/getAllCompanies"
   status = 200

@@ -4,7 +4,7 @@ import type { RootState } from '../store.ts';
 export const fetchData = createAsyncThunk('cards/fetch', async (_, thunkAPI) => {
   // @ts-ignore
   const offset = thunkAPI.getState().cards.cards.length;
-  const response = await fetch('/api/getAllCompanies', {
+  const response = await fetch('/api', {
     method: 'POST',
     headers: {
       TOKEN: '123',
