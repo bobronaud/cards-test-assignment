@@ -6,7 +6,6 @@ export const fetchData = createAsyncThunk('cards/fetch', async (_, thunkAPI) => 
   const offset = thunkAPI.getState().cards.cards.length;
   const response = await fetch('http://devapp.bonusmoney.pro/mobileapp/getAllCompanies', {
     method: 'POST',
-    referrerPolicy: 'unsafe-url',
     headers: {
       TOKEN: '123',
     },
