@@ -1,4 +1,4 @@
-# сards-test-assignment
+# company-сards-test-assignment
 
 ## Техническое задание
 Ссылка с ресурсами и макетом - http://bonusmoney.info/dev_test/FrontendTask.zip
