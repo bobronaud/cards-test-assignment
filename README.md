@@ -1,5 +1,8 @@
 # [Deploy](https://company-cards-test-assignment.netlify.app/)
 
+## Внимание
+Макет проекта рассчитаны исключительно на мобильную верстку. Если вы открываете деплой с ПК, то используйте мобильное разрешение в devTools
+
 ## Техническое задание
 Ссылка с ресурсами и макетом - http://bonusmoney.info/dev_test/FrontendTask.zip
 
